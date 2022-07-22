@@ -1,43 +1,44 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import ContainerResult from "../container-result";
 import Option from "../option";
 
-const ContainerPlay = ({onGameEnd}) => {
+const ContainerPlay = ({ onGameEnd }) => {
   const [myOption, setMyOption] = useState("");
+  const [enemyOption, setEnemyOption] = useState("");
+  const [isWinner, setisWinner] = useState(false);
 
   const onOptionClickHandler = (option) => {
+    let enemy = createEnemyOption();
+    let isWin = false;
+
     setMyOption(option);
-    onGameEnd(-1);
+    setEnemyOption(enemy);
+
+    if (option == "rock" && enemy == "scissors") isWin = true;
+    else if (option == "paper" && enemy == "rock") isWin = true;
+    else if (option == "scissors" && enemy == "paper") isWin = true;
+
+    setisWinner(isWin);
+
+    onGameEnd(option == enemy ? 0 : isWin ? 1 : -1);
   };
 
   const createEnemyOption = () => {
-    let option = ['rock', 'paper', 'scissors'];
+    let option = ["rock", "paper", "scissors"];
 
-    let enemy = '';
-
-    if(myOption == 'rock'){
-      enemy = 'paper';
-    }else if(myOption == 'paper'){
-      enemy = 'scissors'
-    }else{
-      enemy = 'rock';
-    }
+    let enemy = option[Math.floor(Math.random() * 3)];
 
     return enemy;
-  }
+  };
 
-  const onResetGameClickHandler= () => {
+  const onResetGameClickHandler = () => {
     setMyOption("");
-  }
+  };
 
   return (
     <Fragment>
       {myOption == "" ? (
         <div className="grid grid-cols-2 gap-x-24 relative">
-          {/* <div className="line absolute h-8 w-full left-0 bg-dark-text top-20"></div> */}
-          {/* <div className="line absolute h-8 w-1/2 bg-dark-text top-20 left-1/2 -translate-x-1/2 -rotate-45 origin-right"></div> */}
-          {/* <div className="line absolute h-8 w-full left-0 bg-dark-text top-20"></div> */}
-
           <Option name="paper" onClickedOption={onOptionClickHandler} />
           <Option name="scissors" onClickedOption={onOptionClickHandler} />
           <div className="col-span-2 grid justify-center mt-6">
@@ -45,7 +46,12 @@ const ContainerPlay = ({onGameEnd}) => {
           </div>
         </div>
       ) : (
-        <ContainerResult onPlayAgainClicked={onResetGameClickHandler} myOption={myOption} enemyOption={createEnemyOption()}/>
+        <ContainerResult
+          onPlayAgainClicked={onResetGameClickHandler}
+          myOption={myOption}
+          enemyOption={enemyOption}
+          isWinner={isWinner}
+        />
       )}
     </Fragment>
   );

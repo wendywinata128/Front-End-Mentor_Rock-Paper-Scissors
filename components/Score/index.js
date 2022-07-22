@@ -1,9 +1,9 @@
 const Score = ({ className, score }) => {
   return (
     <div
-      className={`w-2/5 border-4 border-primary-white rounded-xl p-8 text-white font-bold text-5xl flex justify-between ${className}`}
+      className={`w-full sm:w-2/5 border-4 border-primary-white rounded-xl p-8 text-white font-bold text-lg sm:text-5xl flex justify-between ${className}`}
     >
-      <div className="hero heigt leading-10">
+      <div className="hero heigt sm:leading-10">
         ROCK
         <br />
         PAPER

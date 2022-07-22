@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
 import Option from "../option";
 
-const ContainerResult = ({ myOption, enemyOption, onPlayAgainClicked }) => {
-  const [isWinner, setisWinner] = useState(false);
-
-  useEffect(() => {
-    if (myOption == "rock" && enemyOption == "scissors") setisWinner(true);
-    else if (myOption == "paper" && enemyOption == "rock") setisWinner(true);
-    else if (myOption == "scissors" && enemyOption == "paper")
-      setisWinner(true);
-    else setisWinner(false);
-  }, []);
+const ContainerResult = ({ myOption, enemyOption, onPlayAgainClicked, isWinner }) => {
 
   return (
     <div className="flex justify-between text-white text-lg text-center font-bold gap-16">
@@ -20,7 +11,7 @@ const ContainerResult = ({ myOption, enemyOption, onPlayAgainClicked }) => {
       </div>
       <div className="flex items-end">
         <div className="h-48 flex w-64 items-center justify-center flex-col gap-4">
-          <div className="result text-4xl">{isWinner ? 'YOU WIN' : 'YOU LOSE'}</div>
+          <div className="result text-4xl">{myOption == enemyOption ? 'DRAW' : isWinner ? 'YOU WIN' : 'YOU LOSE'}</div>
           <button
             className={`bg-white ${isWinner ? 'text-dark-text' : 'text-danger'} text-sm tracking-widest py-2 px-8 rounded-md`}
             onClick={onPlayAgainClicked}

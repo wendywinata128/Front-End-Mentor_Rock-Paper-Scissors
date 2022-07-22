@@ -33,7 +33,7 @@ const Option = ({ name = "paper", onClickedOption }) => {
 
   return (
     <div
-      className="w-48 h-48 bg-slate-50 rounded-full flex items-center justify-center cursor-pointer z-50 active:scale-90 transition-all duration-300"
+      className="w-48 h-48 bg-slate-50 rounded-full flex items-center justify-center cursor-pointer z-40 active:scale-90 transition-all duration-300"
       style={{
         background: bgColor(),
       }}
